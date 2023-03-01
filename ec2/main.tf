@@ -1,47 +1,55 @@
 data "aws_ami" "ami" {
-  most_recent      = true
-  name_regex       = "Centos-8-DevOps-Practice"
-  owners           = ["973714476881"]
+  most_recent = true
+  name_regex  = "Centos-8-DevOps-Practice"
+  owners      = ["973714476881"]
 }
 
+
 resource "aws_instance" "ec2" {
-  ami                    = "ami-0a017d8ceb274537d"
+  ami                    = data.aws_ami.ami.image_id
   instance_type          = var.instance_type
- # vpc_security_group_ids = [var.sg_id]
+  vpc_security_group_ids = [aws_security_group.sg.id]
   tags = {
     Name = var.component
   }
+}
+
+resource "null_resource" "provisioner" {
   provisioner "remote-exec" {
+
     connection {
-      host = self.public_ip
-      user = "centos"
+      host     = aws_instance.ec2.public_ip
+      user     = "centos"
       password = "DevOps321"
     }
+
     inline = [
-    "git clone https://github.com/srini123k/roboshop-shell",
+      "git clone https://github.com/raghudevopsb71/roboshop-shell",
       "cd roboshop-shell",
-      "sudo bash ${var.component}.sh"
+      "sudo bash ${var.component}.sh ${var.password}"
     ]
+
   }
+
 }
+
 resource "aws_security_group" "sg" {
   name        = "${var.component}-${var.env}-sg"
   description = "Allow TLS inbound traffic"
 
-
   ingress {
-    description      = "ALL"
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
+    description = "ALL"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
@@ -50,27 +58,16 @@ resource "aws_security_group" "sg" {
 }
 
 resource "aws_route53_record" "record" {
-  zone_id = "Z0552687ZOEXRFHA1XPG"
-  name    = "${var.component}-dev.devopsb71.cloud"
+  zone_id = "Z103214126L48SQW30RSR"
+  name    = "${var.component}-dev.devopsb71.online"
   type    = "A"
-  ttl     = 300
-#  records = [var.private_ip]
+  ttl     = 30
+  records = [aws_instance.ec2.private_ip]
 }
 
-#output "sg_id" {
- # value = aws_security_group.allow_tls.id
-#}
-
 variable "component" {}
-
 variable "instance_type" {}
-
-#variable "sg_id" {}
-
 variable "env" {
   default = "dev"
 }
-
-#output "private_ip" {
- # value = aws_instance.ec2.private_ip
-#}
+variable "password" {}
