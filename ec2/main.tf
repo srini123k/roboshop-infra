@@ -67,8 +67,9 @@ variable "instance_type" {}
 
 #variable "sg_id" {}
 
-variable "env" {}
- default="dev"
+variable "env" {
+  default = "dev"
+}
 
 #output "private_ip" {
  # value = aws_instance.ec2.private_ip
