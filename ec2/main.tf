@@ -15,7 +15,7 @@ resource "aws_instance" "ec2" {
     connection {
       host = self.public_ip
       user = "centos"
-      password = 'DevOps321'
+      password = "DevOps321"
     }
     inline = [
     "git clone https://github.com/srini123k/roboshop-shell",
