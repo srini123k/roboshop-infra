@@ -14,7 +14,6 @@ parameters= [
 { name = "dev.payment.user_host", value = "user-dev.devopsb71.cloud", type = "String" },
 { name = "dev.payment.user_port", value = "8080", type = "String" },
 { name = "dev.payment.amqp_host", value = "rabbitmq-dev.devopsb71.cloud", type = "String" },
-{name = "dev.payment.amqp_user", value= "roboshop",  type = "String"},
 { name = "dev.catalogue.mongo", value = "true", type = "String" },
 { name = "dev.catalogue.mongo_url", value = "mongodb://mongodb-dev.devopsb71.cloud:27017/users", type = "String" },
 { name = "dev.cart.redis_host", value = "redis-dev.devopsb71.cloud", type = "String" },
