@@ -6,4 +6,4 @@ tags = {
 }
 
 default_vpc_id      = "vpc-0d0dccca525296928"
-default_route_table = "rtb-070362c7ef296eb2e"
+default_route_table = "rtb-06bdd1269b35c0150"
