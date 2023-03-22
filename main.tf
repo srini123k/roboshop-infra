@@ -54,7 +54,7 @@ module "rds" {
 }
 
 module "elasticache" {
-  source = "git::https://github.com/raghudevopsb71/tf-module-elasticache.git"
+  source = "git::https://github.com/srini123k/tf-module-elasticache.git"
   env    = var.env
   tags   = var.tags
 
@@ -67,6 +67,20 @@ module "elasticache" {
   node_type       = each.value["node_type"]
 
 }
+
+
+module "rabbitmq" {
+  source = "git::https://github.com/raghudevopsb71/tf-module-rabbitmq.git"
+  env    = var.env
+  tags   = var.tags
+
+  subnet_ids = local.db_subnet_ids
+
+  for_each      = var.rabbitmq
+  instance_type = each.value["instance_type"]
+
+}
+
 
 #output "vpc" {
 # value = module.vpc
