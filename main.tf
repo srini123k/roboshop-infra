@@ -95,6 +95,24 @@ module "alb" {
   subnets = lookup(local.subnet_ids, each.value["subnet_name"], null)
 }
 
+module "app" {
+  source = "git::https://github.com/srini123k/tf-module-app.git"
+  env    = var.env
+  tags   = var.tags
+#  bastion_cidr = var.bastion_cidr
+
+  vpc_id = module.vpc["main"].vpc_id
+
+  for_each      = var.apps
+  component        = each.value["component"]
+  instance_type    = each.value["instance_type"]
+  desired_capacity = each.value["desired_capacity"]
+  max_size         = each.value["max_size"]
+  min_size         = each.value["min_size"]
+  subnets          = lookup(local.subnet_ids, each.value["subnet_name"], null)
+ # port             = each.value["port"]
+  #allow_app_to     = lookup(local.subnet_cidr, each.value["allow_app_to"], null)
+}
 
 #output "vpc" {
 # value = module.vpc
