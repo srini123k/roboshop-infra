@@ -104,7 +104,7 @@ module "app" {
   env    = var.env
   tags   = var.tags
   bastion_cidr = var.bastion_cidr
- # dns_domain   = var.dns_domain
+  dns_domain   = var.dns_domain
   vpc_id = module.vpc["main"].vpc_id
 
   for_each      = var.apps
@@ -117,7 +117,7 @@ module "app" {
   port             = each.value["port"]
   allow_app_to     = lookup(local.subnet_cidr, each.value["allow_app_to"], null)
   #listener_priority = each.value["listener_priority"]
-  #alb_dbs_name      = lookup(lookup(lookup(module.alb, each.value["alb"], null), "alb", null), "dns_name", null)
+  alb_dns_name      = lookup(lookup(lookup(module.alb, each.value["alb"], null), "alb", null), "dns_name", null)
   #listener_arn      = lookup(lookup(lookup(module.alb, each.value["alb"], null), "listener", null), "arn", null)
 }
 
