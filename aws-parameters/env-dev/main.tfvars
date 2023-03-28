@@ -1,3 +1,4 @@
+# first 5 frontend port needs to update to 80 instead of 8080
 parameters = [
   { name = "dev.frontend.catalogue_url", value = "http://catalogue-dev.devopsb71.cloud:8080/", type = "String" },
   { name = "dev.frontend.user_url", value = "http://user-dev.devopsb71.cloud:8080/", type = "String" },
