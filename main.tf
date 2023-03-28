@@ -13,7 +13,6 @@ module "vpc" {
 }
 
 
-/*
 module "docdb" {
 
   source = "git::https://github.com/srini123k/tf-module-docdb.git"
@@ -90,7 +89,6 @@ module "rabbitmq" {
   instance_type = each.value["instance_type"]
  #allow_subnets = lookup(local.subnet_cidr, each.value["allow_subnets"], null)
 }
-*/
 
 module "alb" {
   source = "git::https://github.com/srini123k/tf-module-alb.git"
