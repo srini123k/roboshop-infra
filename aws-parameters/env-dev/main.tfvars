@@ -10,16 +10,15 @@ parameters = [
   { name = "dev.shipping.cart_endpoint", value = "cart-dev.devopsb71.cloud:8080", type = "String" },
   { name = "dev.shipping.db_host", value = "mysql-dev.devopsb71.cloud", type = "String" },
   { name = "dev.payment.cart_host", value = "cart-dev.devopsb71.cloud", type = "String" },
-  { name = "dev.payment.cart_port", value = "8080", type = "String" },
+  { name = "dev.payment.cart_port", value = "80", type = "String" },
   { name = "dev.payment.user_host", value = "user-dev.devopsb71.cloud", type = "String" },
-  { name = "dev.payment.user_port", value = "8080", type = "String" },
+  { name = "dev.payment.user_port", value = "80", type = "String" },
   { name = "dev.payment.amqp_host", value = "rabbitmq-dev.devopsb71.cloud", type = "String" },
   { name = "dev.catalogue.mongo", value = "true", type = "String" },
   { name = "dev.catalogue.mongo_url", value = "mongodb://mongodb-dev.devopsb71.cloud:27017/users", type = "String" },
   { name = "dev.cart.redis_host", value = "redis-dev.devopsb71.cloud", type = "String" },
   { name = "dev.cart.catalogue_host", value = "catalogue-dev.devopsb71.cloud", type = "String" },
-  { name = "dev.cart.catalogue_port", value = "8080", type = "String" }
-  #All ports needs to change to 80
+  { name = "dev.cart.catalogue_port", value = "80", type = "String" }
 ]
 
 # This is not going to be the practice in companies, we should not keep passwords in git repos
