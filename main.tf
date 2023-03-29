@@ -134,10 +134,10 @@ module "app" {
 # value = module.vpc
 #}
 
-output "alb" {
-  value = module.alb
-}
-
 #output "alb" {
-#  value = module.elasticache
+#  value = module.alb
 #}
+
+output "alb" {
+  value = module.elasticache
+}
