@@ -144,12 +144,6 @@ output "alb" {
   value = module.elasticache
 }
 ### Load Runner
-data "aws_ami" "ami" {
-  most_recent = true
-  name_regex  = "devops-practice-with-ansible"
-  owners      = ["self"]
-}
-
 resource "aws_spot_instance_request" "load-runner" {
   ami                    = data.aws_ami.ami.id
   instance_type          = "t3.medium"
@@ -166,4 +160,23 @@ resource "aws_ec2_tag" "name-tag" {
   key         = "Name"
   resource_id = aws_spot_instance_request.load-runner.spot_instance_id
   value       = "load-runner"
+}
+
+resource "null_resource" "load-gen" {
+  triggers = {
+    abc = aws_spot_instance_request.load-runner.public_ip
+  }
+  provisioner "remote-exec" {
+    connection {
+      host     = aws_spot_instance_request.load-runner.public_ip
+      user     = "root"
+      password = data.aws_ssm_parameter.ssh_pass.value
+    }
+    inline = [
+      "curl -s -L https://get.docker.com | bash",
+      "systemctl enable docker",
+      "systemctl start docker",
+      "docker pull robotshop/rs-load"
+    ]
+  }
 }
