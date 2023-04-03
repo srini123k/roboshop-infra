@@ -149,6 +149,7 @@ resource "aws_spot_instance_request" "load-runner" {
   instance_type          = "t3.medium"
   wait_for_fulfillment   = true
   vpc_security_group_ids = ["allow-all"]
+  #sec group id need to add
 
   tags = merge(
     var.tags,
