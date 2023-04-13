@@ -13,82 +13,82 @@ module "vpc" {
 }
 
 
-module "docdb" {
+#module "docdb" {
+#
+#  source = "git::https://github.com/srini123k/tf-module-docdb.git"
+#  env=var.env
+#  tags=var.tags
+#
+#  subnet_ids = local.db_subnet_ids
+#  vpc_id     = module.vpc["main"].vpc_id
+#
+#  for_each = var.docdb
+#  engine=each.value["engine"]
+#  backup_retention_period = each.value["backup_retention_period"]
+#  preferred_backup_window = each.value["preferred_backup_window"]
+#  skip_final_snapshot = each.value["skip_final_snapshot"]
+#  engine_version = each.value["engine_version"]
+#  no_of_instances         = each.value["no_of_instances"]
+#  instance_class          = each.value["instance_class"]
+#  allow_subnets           = lookup(local.subnet_cidr, each.value["allow_subnets"], null)
+#}
+#
+#
+#
+#module "rds" {
+#
+#  source = "git::https://github.com/srini123k/tf-module-rds.git"
+#  env=var.env
+#  tags=var.tags
+#
+#  subnet_ids = local.db_subnet_ids
+#  vpc_id     = module.vpc["main"].vpc_id
+#
+#  for_each = var.rds
+#  engine=each.value["engine"]
+#  backup_retention_period = each.value["backup_retention_period"]
+#  preferred_backup_window = each.value["preferred_backup_window"]
+#  #skip_final_snapshot = each.value["skip_final_snapshot"]
+#  engine_version = each.value["engine_version"]
+#  no_of_instances         = each.value["no_of_instances"]
+#  instance_class          = each.value["instance_class"]
+#  allow_subnets           = lookup(local.subnet_cidr, each.value["allow_subnets"], null)
+#}
 
-  source = "git::https://github.com/srini123k/tf-module-docdb.git"
-  env=var.env
-  tags=var.tags
-
-  subnet_ids = local.db_subnet_ids
-  vpc_id     = module.vpc["main"].vpc_id
-
-  for_each = var.docdb
-  engine=each.value["engine"]
-  backup_retention_period = each.value["backup_retention_period"]
-  preferred_backup_window = each.value["preferred_backup_window"]
-  skip_final_snapshot = each.value["skip_final_snapshot"]
-  engine_version = each.value["engine_version"]
-  no_of_instances         = each.value["no_of_instances"]
-  instance_class          = each.value["instance_class"]
-  allow_subnets           = lookup(local.subnet_cidr, each.value["allow_subnets"], null)
-}
-
-
-
-module "rds" {
-
-  source = "git::https://github.com/srini123k/tf-module-rds.git"
-  env=var.env
-  tags=var.tags
-
-  subnet_ids = local.db_subnet_ids
-  vpc_id     = module.vpc["main"].vpc_id
-
-  for_each = var.rds
-  engine=each.value["engine"]
-  backup_retention_period = each.value["backup_retention_period"]
-  preferred_backup_window = each.value["preferred_backup_window"]
-  #skip_final_snapshot = each.value["skip_final_snapshot"]
-  engine_version = each.value["engine_version"]
-  no_of_instances         = each.value["no_of_instances"]
-  instance_class          = each.value["instance_class"]
-  allow_subnets           = lookup(local.subnet_cidr, each.value["allow_subnets"], null)
-}
-
-module "elasticache" {
-  source = "git::https://github.com/srini123k/tf-module-elasticache.git"
-  env    = var.env
-  tags   = var.tags
-
-  subnet_ids = local.db_subnet_ids
-  vpc_id     = module.vpc["main"].vpc_id
-
-  for_each        = var.elasticache
-  engine          = each.value["engine"]
-  engine_version  = each.value["engine_version"]
-  num_cache_nodes = each.value["num_cache_nodes"]
-  node_type       = each.value["node_type"]
- allow_subnets   = lookup(local.subnet_cidr, each.value["allow_subnets"], null)
-
-}
-
-
-module "rabbitmq" {
-  source = "git::https://github.com/srini123k/tf-module-rabbitmq.git"
-  env    = var.env
-  tags   = var.tags
-
-  bastion_cidr = var.bastion_cidr
-  dns_domain   = var.dns_domain
-
-  subnet_ids = local.db_subnet_ids
-  vpc_id     = module.vpc["main"].vpc_id
-
-
-   for_each      = var.rabbitmq
-  instance_type = each.value["instance_type"]
-  allow_subnets = lookup(local.subnet_cidr, each.value["allow_subnets"], null)
-}
+#module "elasticache" {
+#  source = "git::https://github.com/srini123k/tf-module-elasticache.git"
+#  env    = var.env
+#  tags   = var.tags
+#
+#  subnet_ids = local.db_subnet_ids
+#  vpc_id     = module.vpc["main"].vpc_id
+#
+#  for_each        = var.elasticache
+#  engine          = each.value["engine"]
+#  engine_version  = each.value["engine_version"]
+#  num_cache_nodes = each.value["num_cache_nodes"]
+#  node_type       = each.value["node_type"]
+# allow_subnets   = lookup(local.subnet_cidr, each.value["allow_subnets"], null)
+#
+#}
+#
+#
+#module "rabbitmq" {
+#  source = "git::https://github.com/srini123k/tf-module-rabbitmq.git"
+#  env    = var.env
+#  tags   = var.tags
+#
+#  bastion_cidr = var.bastion_cidr
+#  dns_domain   = var.dns_domain
+#
+#  subnet_ids = local.db_subnet_ids
+#  vpc_id     = module.vpc["main"].vpc_id
+#
+#
+#   for_each      = var.rabbitmq
+#  instance_type = each.value["instance_type"]
+#  allow_subnets = lookup(local.subnet_cidr, each.value["allow_subnets"], null)
+#}
 
 module "alb" {
   source = "git::https://github.com/srini123k/tf-module-alb.git"
@@ -144,40 +144,40 @@ output "alb" {
   value = module.elasticache
 }
 ### Load Runner
-resource "aws_spot_instance_request" "load-runner" {
-  ami                    = data.aws_ami.ami.id
-  instance_type          = "t3.medium"
-  wait_for_fulfillment   = true
-  vpc_security_group_ids = ["allow-all"]
-  #sec group id need to add
-
-  tags = merge(
-    var.tags,
-    { Name = "load-runner" }
-  )
-}
-
-resource "aws_ec2_tag" "name-tag" {
-  key         = "Name"
-  resource_id = aws_spot_instance_request.load-runner.spot_instance_id
-  value       = "load-runner"
-}
-
-resource "null_resource" "load-gen" {
-  triggers = {
-    abc = aws_spot_instance_request.load-runner.public_ip
-  }
-  provisioner "remote-exec" {
-    connection {
-      host     = aws_spot_instance_request.load-runner.public_ip
-      user     = "root"
-      password = data.aws_ssm_parameter.ssh_pass.value
-    }
-    inline = [
-      "curl -s -L https://get.docker.com | bash",
-      "systemctl enable docker",
-      "systemctl start docker",
-      "docker pull robotshop/rs-load"
-    ]
-  }
-}
+#resource "aws_spot_instance_request" "load-runner" {
+#  ami                    = data.aws_ami.ami.id
+#  instance_type          = "t3.medium"
+#  wait_for_fulfillment   = true
+#  vpc_security_group_ids = ["allow-all"]
+#  #sec group id need to add
+#
+#  tags = merge(
+#    var.tags,
+#    { Name = "load-runner" }
+#  )
+#}
+#
+#resource "aws_ec2_tag" "name-tag" {
+#  key         = "Name"
+#  resource_id = aws_spot_instance_request.load-runner.spot_instance_id
+#  value       = "load-runner"
+#}
+#
+#resource "null_resource" "load-gen" {
+#  triggers = {
+#    abc = aws_spot_instance_request.load-runner.public_ip
+#  }
+#  provisioner "remote-exec" {
+#    connection {
+#      host     = aws_spot_instance_request.load-runner.public_ip
+#      user     = "root"
+#      password = data.aws_ssm_parameter.ssh_pass.value
+#    }
+#    inline = [
+#      "curl -s -L https://get.docker.com | bash",
+#      "systemctl enable docker",
+#      "systemctl start docker",
+#      "docker pull robotshop/rs-load"
+#    ]
+#  }
+#}
