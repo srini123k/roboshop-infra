@@ -94,8 +94,8 @@ elasticache = {
 
 rabbitmq = {
   main = {
-    instance_type = "t3.micro"
-    #instance_type = "t3.small"
+    #instance_type = "t3.micro"
+    instance_type = "t3.small"
     allow_subnets           = "app"
   }
 }
@@ -122,8 +122,7 @@ apps = {
     component        = "catalogue"
     instance_type    = "t3.micro"
     desired_capacity = 2
-    max_size         = 4
-    #10
+    max_size         = 10
     min_size         = 2
     subnet_name      = "app"
     port             = 8080
@@ -136,8 +135,7 @@ apps = {
     component        = "cart"
     instance_type    = "t3.micro"
     desired_capacity = 2
-    max_size         = 4
-    #10
+    max_size         = 10
     min_size         = 2
     subnet_name      = "app"
     port             = 8080
@@ -150,8 +148,7 @@ apps = {
     component        = "user"
     instance_type    = "t3.micro"
     desired_capacity = 2
-    max_size         = 4
-    #10
+    max_size         = 10
     min_size         = 2
     subnet_name      = "app"
     port             = 8080
@@ -162,11 +159,9 @@ apps = {
   }
   shipping = {
     component        = "shipping"
-    instance_type    = "t3.micro"
-    #medium
+    instance_type    = "t3.medium"
     desired_capacity = 2
-    max_size         = 4
-    #10
+    max_size         = 10
     min_size         = 2
     subnet_name      = "app"
     port             = 8080
@@ -179,8 +174,7 @@ apps = {
     component        = "payment"
     instance_type    = "t3.micro"
     desired_capacity = 2
-    max_size         = 4
-    #10
+    max_size         = 10
     min_size         = 2
     subnet_name      = "app"
     port             = 8080
@@ -193,8 +187,7 @@ apps = {
     component        = "frontend"
     instance_type    = "t3.micro"
     desired_capacity = 2
-    max_size         = 4
-    #10
+    max_size         = 10
     min_size         = 2
     subnet_name      = "web"
     port             = 80

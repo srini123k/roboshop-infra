@@ -7,7 +7,7 @@ parameters = [
   { name = "prod.user.mongo", value = "true", type = "String" },
   { name = "prod.user.redis_host", value = "redis-prod.devopsb71.cloud", type = "String" },
   { name = "prod.user.mongo_url", value = "mongodb://mongodb-prod.devopsb71.cloud:27017/catalogue", type = "String" },
-  { name = "prod.shipping.cart_endpoint", value = "cart-prod.devopsb71.cloud:8080", type = "String" },
+  { name = "prod.shipping.cart_endpoint", value = "cart-prod.devopsb71.cloud:80", type = "String" },
   { name = "prod.shipping.db_host", value = "mysql-prod.devopsb71.cloud", type = "String" },
   { name = "prod.payment.cart_host", value = "cart-prod.devopsb71.cloud", type = "String" },
   { name = "prod.payment.cart_port", value = "80", type = "String" },
@@ -19,6 +19,10 @@ parameters = [
   { name = "prod.cart.redis_host", value = "redis-prod.devopsb71.cloud", type = "String" },
   { name = "prod.cart.catalogue_host", value = "catalogue-prod.devopsb71.cloud", type = "String" },
   { name = "prod.cart.catalogue_port", value = "80", type = "String" }
+#  { name = "prod.user.app_version", value = "1.0.1", type = "String" },
+#  { name = "prod.cart.app_version", value = "1.0.0", type = "String" },
+#  { name = "prod.shipping.app_version", value = "1.0.1", type = "String" },
+#  { name = "prod.payment.app_version", value = "1.0.0", type = "String" }
 ]
 
 # This is not going to be the practice in companies, we should not keep passwords in git repos
@@ -33,5 +37,6 @@ secrets = [
   { name = "prod.rds.user", value = "admin1", type = "SecureString" },
   { name = "prod.rds.pass", value = "RoboShop1", type = "SecureString" },
   { name = "prod.ssh.pass", value = "DevOps321", type = "SecureString" }
-
+#  { name = "prod.nexus.user", value = "admin", type = "SecureString" },
+#  { name = "prod.nexus.pass", value = "admin123", type = "SecureString" }
 ]
