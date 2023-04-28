@@ -12,7 +12,7 @@ module "vpc" {
   private_subnets = each.value["private_subnets"]
 }
 
-
+/*
 module "docdb" {
 
   source = "git::https://github.com/srini123k/tf-module-docdb.git"
@@ -181,3 +181,5 @@ resource "null_resource" "load-gen" {
     ]
   }
 }
+
+*/
